@@ -43,8 +43,8 @@ a{
   color: #181818;
 }
 a:hover,a:focus{
-  background: #181818;
-  color:#fff;
+  background: #fff;
+  color:#181818;
 }
 h2{
   font-size: 1em;
@@ -79,7 +79,7 @@ input[type="text"]{
   max-width: 10em;
   border: none;
   font-family: inherit;
-  background: #fff;
+  background: #181818;
   padding:0 .5em;
 }
 input[type="text"]:focus{
@@ -90,7 +90,7 @@ input[type="text"]:focus{
 .command{
   display: block;
   max-width: 20em;
-  color: #181818;
+  color: #fff;
   font-weight: 700;
   margin: 2em 0;
 }
