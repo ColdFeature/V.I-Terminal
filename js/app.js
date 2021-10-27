@@ -22,7 +22,7 @@ $(document).ready(function() {
   $('input[type="text"]').focus();
   $('#home').addClass('open');
   $('#home').textTyper({
-        speed:200,
+        speed:2,
         afterAnimation:function(){
           $('.command').fadeIn();
           $('input[type="text"]').focus();
