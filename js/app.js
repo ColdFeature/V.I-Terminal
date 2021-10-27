@@ -57,7 +57,7 @@ var typeWriter = function (selector, type, interval) {
 
         	setTimeout(function() {
         		targetSection.classList.add("open");
-        	}, 200);
+        	}, 900);
 
 	       	for(var i = 0;i < targetSiblings.length;i++) {
 	        	targetSiblings[i].classList.remove("open");
@@ -68,7 +68,7 @@ var typeWriter = function (selector, type, interval) {
 
                 all.innerHTML = newText;
 
-                end = end + 0; //loops through the text in the element
+                end = end + 1; //loops through the text in the element
 
                 if (newText === text) {
 
