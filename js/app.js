@@ -49,7 +49,7 @@ var typeWriter = function (selector, type, interval) {
         //Setting the default interval to 100 when interval is not set by the user
         if (typeof interval === "undefined") {
 
-            interval = 100;
+            interval = 300;
 
         }
 
@@ -57,7 +57,7 @@ var typeWriter = function (selector, type, interval) {
 
         	setTimeout(function() {
         		targetSection.classList.add("open");
-        	}, 900);
+        	}, 200);
 
 	       	for(var i = 0;i < targetSiblings.length;i++) {
 	        	targetSiblings[i].classList.remove("open");
