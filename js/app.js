@@ -49,7 +49,7 @@ var typeWriter = function (selector, type, interval) {
         //Setting the default interval to 100 when interval is not set by the user
         if (typeof interval === "undefined") {
 
-            interval = 10000000000000000000000000000000000000;
+            interval = 1000000000000000000000000000000000000;
 
         }
 
