@@ -68,7 +68,7 @@ var typeWriter = function (selector, type, interval) {
 
                 all.innerHTML = newText;
 
-                end = end + 1000; //loops through the text in the element
+                end = end + .4; //loops through the text in the element
 
                 if (newText === text) {
 
