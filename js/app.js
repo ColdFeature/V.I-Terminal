@@ -1,115 +1,80 @@
 /*!
- * CLI
- * Simulating a command line interface with vanilla JS
+ * jQuery CLI
+ * Simulating a command line interface with jQuery
  *
- * @version : 1.2.0
- * @author : Paulo Nunes (https://syndicatefx.com)
+ * @version : 1.0.0
+ * @author : Paulo Nunes (http://syndicatefx.com)
  * @demo : https://codepen.io/syndicatefx/pen/jPxXpz
  * @license: MIT
  */
 
-/*
-Modified/adapted from the original script by:
-https://github.com/ckm100/typeWriter.js
+/*!* 
+ * jQuery Text Typer plugin
+ * https://github.com/gr8pathik/jquery-texttyper
 */
-document.addEventListener("DOMContentLoad", typeWriter, false);
-
-var typeWriter = function (selector, type, interval) {
-
-    var el = document.querySelectorAll(selector), // Getting elements in the DOM
-        i = 0,
-        len = el.length, // Length of element on the page
-        list = [], // List of elements on the page in the DOM
-        a,
-        all,
-        text,
-        start,
-        end,
-        nextText,
-        sectionId = selector.replace(/^#/, ''),
-        targetSection = document.getElementById(sectionId),
-        sections = document.getElementsByTagName("section")[0],
-        targetSiblings = [].slice.call(sections.parentNode.children).filter(function(v) { return v !== targetSection }),
-        cmd = document.querySelector(".command"),
-        clear;
-
-    for (; i < len; i++) {
-
-        list.push(el[i]); // Pushing the element in the list array
-    }
-
-    for (a in list) {
-
-        all = list[a]; // List of all element
-        text = all.innerHTML; // InnerHTML of the elements 
-        start = 0; // Start index of the text in the elements 
-        end = 0; // End index of the text in the elements
+(function(e){"use strict";e.fn.textTyper=function(t){var n={typingClass:"typing",beforeAnimation:function(){},afterAnimation:function(){},speed:10,nextLineDelay:400,startsFrom:0,repeatAnimation:false,repeatDelay:4e3,repeatTimes:1,cursorHtml:'<span class="cursor">|</span>'},r=e.extend({},n,t);this.each(function(){var t=e(this),n=1,i="typingCursor";var s=t,o=s.length,u=[];while(o--){u[o]=e.trim(e(s[o]).html());e(s[o]).html("")}t.init=function(e){var n=r.beforeAnimation;if(n)n();t.animate(0)};t.animate=function(o){var a=s[o],f=r.typingClass,l=r.startsFrom;e(a).addClass(f);var c=setInterval(function(){var f=r.cursorHtml;f=e("<div>").append(e(f).addClass(i)).html();e(a).html(u[o].substr(0,l)+f);l++;if(u[o].length<l){clearInterval(c);o++;if(s[o]){setTimeout(function(){e(a).html(u[o-1]);t.animate(o)},r.nextLineDelay)}else{e(a).find("."+i).remove();if(r.repeatAnimation&&(r.repeatTimes==0||n<r.repeatTimes)){setTimeout(function(){t.animate(0);n++},r.repeatDelay)}else{var h=r.afterAnimation;if(h)h()}}}},r.speed)};t.init()});return this}})(jQuery)
 
 
-        //Setting the default interval to 100 when interval is not set by the user
-        if (typeof interval === "undefined") {
+// Let's do it!!
+$(document).ready(function() {
 
-            interval = 20;
-
+  $('.command').hide();
+  $('input[type="text"]').focus();
+  $('#home').addClass('open');
+  $('#home').textTyper({
+        speed:200,
+        afterAnimation:function(){
+          $('.command').fadeIn();
+          $('input[type="text"]').focus();
+          $('input[type="text"]').val('');
         }
+      });
 
-        if (arguments[1] === "true") {
+// get array of section ids, that exist in DOM
+var sectionArray = [];
+// We are using <section> here, you can use <div> or <article> if you want
+$('section').each( function(i,e) {
+    //you can use e.id instead of $(e).attr('id')
+    sectionArray.push($(e).attr('id'));
+});
 
-        	setTimeout(function() {
-        		targetSection.classList.add("open");
-        	}, 200);
+// Debug
+//console.log(sectionArray);
 
-	       	for(var i = 0;i < targetSiblings.length;i++) {
-	        	targetSiblings[i].classList.remove("open");
-	        }
 
-            clear = setInterval(function () { // Animation start
-                var newText = text.substr(start, end);
 
-                all.innerHTML = newText;
+// Command Input------------------------------
 
-                end = end + 1; //loops through the text in the element
+  $('input[type="text"]').keyup(function(e){
 
-                if (newText === text) {
+    if(e.which == 13){// ENTER key pressed
 
-                    clearInterval(clear); // Animation end
-                    cmd.classList.add("open");
-                    input.focus();
+      $('.command').hide();
+      var destination = $('input[type="text"]').val();
 
-                }
+      // Display section with id == destination and hide all others
+      $('section[id="' + destination + '"]').addClass('open').siblings().removeClass('open');
 
-            }, interval);
+      // If destination does not match our array of section ids, display error section
+      if($.inArray(destination, sectionArray) == -1){
+        $('#error').addClass('open');
+        $('#error').siblings().removeClass('open');
+      }
 
+      // All sections with class .open init textTyper
+      $('.open').textTyper({
+        speed:20,
+        afterAnimation:function(){
+          $('.command').fadeIn();
+          $('input[type="text"]').focus();
+          $('input[type="text"]').val('');
         }
+      });
 
-        return all;
+    }// end if ENTER key pressed
 
-    }
+  });// end keyup function
 
-}
+// End Command Input-----------------------------
 
-var input = document.querySelector("input"),
-	block = document.getElementsByTagName("section");
-
-window.onload = function() {
-	typeWriter("#home","true",10);
-
-	var sectionArray = [];
-	for(var i = 0;i < block.length;i++) {
-		sectionArray.push(block[i].id);
-	}
-	//console.log(sectionArray);
-
-	input.addEventListener('keyup', function(e) {
-		if((e.keyCode || e.which) == 13) {// ENTER key pressed
-			var targetValue = input.value;
-			var destination = "#" + targetValue;
-			typeWriter(destination,"true",10);
-			input.value = "";
-
-			if(sectionArray.includes(targetValue) == false) {
-				typeWriter("#error","true",10);
-			}
-		}
-	});
-};
+});
