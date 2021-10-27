@@ -49,7 +49,7 @@ var typeWriter = function (selector, type, interval) {
         //Setting the default interval to 100 when interval is not set by the user
         if (typeof interval === "undefined") {
 
-            interval = 100;
+            interval = 20;
 
         }
 
@@ -113,16 +113,3 @@ window.onload = function() {
 		}
 	});
 };
-© 2021 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-Loading complete
