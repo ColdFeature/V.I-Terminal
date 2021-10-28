@@ -148,9 +148,12 @@
 </ul>
 </section>
 
-<span class="command">authorized-user:/$<input type="text" class="normal" 
-       name="Name" size="20" maxlength="20" 
-	    style="text-transform:uppercase" /> </span>
+<span class="command">authorized-user:/$<input type="text" onkeyup="
+  var start = this.selectionStart;
+  var end = this.selectionEnd;
+  this.value = this.value.toUpperCase();
+  this.setSelectionRange(start, end);
+">
 </main>
 
 <script src="js/app.js"></script>
