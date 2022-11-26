@@ -18,7 +18,7 @@ html {
 }
 
 html {
-  background: #181818;
+  background: #008083;
   overflow-y: scroll; 
 }
 
@@ -65,7 +65,7 @@ li{
 }
 span{
   display: block;
-  color:#999;
+  color:#fff;
   line-height:1;
 }
 
